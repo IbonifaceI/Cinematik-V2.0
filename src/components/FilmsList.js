@@ -1,12 +1,17 @@
 import FilmCard from './FilmCard';
 import styles from './FilmsList.module.css';
 
-const FilmsList = ({ films, openDetails, currentPage, setCurrentPage }) => {
-  const itemsPerPage = 20; 
-  const indexOfFirstItem = (currentPage - 1) * itemsPerPage; 
-  const indexOfLastItem = indexOfFirstItem + itemsPerPage; 
-  const currentItems = films.slice(indexOfFirstItem, indexOfLastItem); 
-  const totalPages = Math.ceil(films.length / itemsPerPage); 
+const FilmsList = ({
+  films,
+  openDetails,
+  currentPage,
+  setCurrentPage
+}) => {
+  const itemsPerPage = 20;
+  const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+  const indexOfLastItem = indexOfFirstItem + itemsPerPage;
+  const currentItems = films.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(films.length / itemsPerPage);
 
   const changePage = (direction) => {
     let nextPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
@@ -33,7 +38,7 @@ const FilmsList = ({ films, openDetails, currentPage, setCurrentPage }) => {
           Предыдущая
         </button>
 
-        { [...Array(totalPages).keys()].map(pageIndex => (
+        {[...Array(totalPages).keys()].map(pageIndex => (
           <span
             key={pageIndex + 1}
             style={{ cursor: 'pointer' }}

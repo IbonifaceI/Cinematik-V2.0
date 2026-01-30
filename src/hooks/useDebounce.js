@@ -1,18 +1,21 @@
-import { useRef, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 const useDebounce = (callback, delay) => {
-  const timer = useRef();
+  const [debouncedValue, setDebouncedValue] = useState('');
 
-  const memoizedCallback = useMemo(
-    () =>
-      function debouncedFunction(...args) {
-        clearTimeout(timer.current);
-        timer.current = setTimeout(() => callback(...args), delay);
-      },
-    [callback, delay]
-  );
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      callback(debouncedValue);
+    }, delay);
 
-  return memoizedCallback;
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [debouncedValue, callback, delay]);
+
+  return (value) => {
+    setDebouncedValue(value);
+  };
 };
 
 export default useDebounce;
